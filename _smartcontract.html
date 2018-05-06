@@ -1,0 +1,282 @@
+<!-- HTML generated using hilite.me --><div style="background: #111111; overflow:auto;width:auto;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #ffffff">pragma</span> <span style="color: #ffffff">solidity</span> <span style="color: #ffffff">^</span><span style="color: #0086f7; font-weight: bold">0.4</span><span style="color: #ffffff">.</span><span style="color: #0086f7; font-weight: bold">13</span><span style="color: #ffffff">;</span>
+
+<span style="color: #008800; font-style: italic; background-color: #0f140f">/**</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f"> * @title SafeMath</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f"> * @dev Math operations with safety checks that throw on error</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f"> */</span>
+<span style="color: #ffffff">library</span> <span style="color: #ffffff">SafeMath</span> <span style="color: #ffffff">{</span>
+  <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">mul(uint256</span> <span style="color: #ffffff">a,</span> <span style="color: #ffffff">uint256</span> <span style="color: #ffffff">b)</span> <span style="color: #ffffff">internal</span> <span style="color: #ffffff">pure</span> <span style="color: #ffffff">returns</span> <span style="color: #ffffff">(uint256)</span> <span style="color: #ffffff">{</span>
+    <span style="color: #ffffff">uint256</span> <span style="color: #ffffff">c</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">a</span> <span style="color: #ffffff">*</span> <span style="color: #ffffff">b;</span>
+    <span style="color: #ffffff">assert(a</span> <span style="color: #ffffff">==</span> <span style="color: #0086f7; font-weight: bold">0</span> <span style="color: #ffffff">||</span> <span style="color: #ffffff">c</span> <span style="color: #ffffff">/</span> <span style="color: #ffffff">a</span> <span style="color: #ffffff">==</span> <span style="color: #ffffff">b);</span>
+    <span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #ffffff">c;</span>
+  <span style="color: #ffffff">}</span>
+
+  <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">div(uint256</span> <span style="color: #ffffff">a,</span> <span style="color: #ffffff">uint256</span> <span style="color: #ffffff">b)</span> <span style="color: #ffffff">internal</span> <span style="color: #ffffff">pure</span> <span style="color: #ffffff">returns</span> <span style="color: #ffffff">(uint256)</span> <span style="color: #ffffff">{</span>
+    <span style="color: #008800; font-style: italic; background-color: #0f140f">// assert(b &gt; 0); // Solidity automatically throws when dividing by 0</span>
+    <span style="color: #ffffff">uint256</span> <span style="color: #ffffff">c</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">a</span> <span style="color: #ffffff">/</span> <span style="color: #ffffff">b;</span>
+    <span style="color: #008800; font-style: italic; background-color: #0f140f">// assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold</span>
+    <span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #ffffff">c;</span>
+  <span style="color: #ffffff">}</span>
+
+  <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">sub(uint256</span> <span style="color: #ffffff">a,</span> <span style="color: #ffffff">uint256</span> <span style="color: #ffffff">b)</span> <span style="color: #ffffff">internal</span> <span style="color: #ffffff">pure</span> <span style="color: #ffffff">returns</span> <span style="color: #ffffff">(uint256)</span> <span style="color: #ffffff">{</span>
+    <span style="color: #ffffff">assert(b</span> <span style="color: #ffffff">&lt;=</span> <span style="color: #ffffff">a);</span>
+    <span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #ffffff">a</span> <span style="color: #ffffff">-</span> <span style="color: #ffffff">b;</span>
+  <span style="color: #ffffff">}</span>
+
+  <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">add(uint256</span> <span style="color: #ffffff">a,</span> <span style="color: #ffffff">uint256</span> <span style="color: #ffffff">b)</span> <span style="color: #ffffff">internal</span> <span style="color: #ffffff">pure</span> <span style="color: #ffffff">returns</span> <span style="color: #ffffff">(uint256)</span> <span style="color: #ffffff">{</span>
+    <span style="color: #ffffff">uint256</span> <span style="color: #ffffff">c</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">a</span> <span style="color: #ffffff">+</span> <span style="color: #ffffff">b;</span>
+    <span style="color: #ffffff">assert(c</span> <span style="color: #ffffff">&gt;=</span> <span style="color: #ffffff">a);</span>
+    <span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #ffffff">c;</span>
+  <span style="color: #ffffff">}</span>
+<span style="color: #ffffff">}</span>
+
+
+<span style="color: #008800; font-style: italic; background-color: #0f140f">/**</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f"> * @title ERC20Basic</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f"> * @dev Simpler version of ERC20 interface</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f"> * @dev see https://github.com/ethereum/EIPs/issues/179</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f"> */</span>
+<span style="color: #ffffff">contract</span> <span style="color: #ffffff">ERC20Basic</span> <span style="color: #ffffff">{</span>
+  <span style="color: #ffffff">uint256</span> <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #ffffff">totalSupply;</span>
+  <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">balanceOf(address</span> <span style="color: #ffffff">who)</span> <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #ffffff">constant</span> <span style="color: #ffffff">returns</span> <span style="color: #ffffff">(uint256);</span>
+  <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">transfer(address</span> <span style="color: #ffffff">to,</span> <span style="color: #ffffff">uint256</span> <span style="color: #ffffff">value)</span> <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #ffffff">returns</span> <span style="color: #ffffff">(bool);</span>
+  <span style="color: #ffffff">event</span> <span style="color: #ffffff">Transfer(address</span> <span style="color: #ffffff">indexed</span> <span style="color: #ffffff">from,</span> <span style="color: #ffffff">address</span> <span style="color: #ffffff">indexed</span> <span style="color: #ffffff">to,</span> <span style="color: #ffffff">uint256</span> <span style="color: #ffffff">value);</span>
+<span style="color: #ffffff">}</span>
+
+<span style="color: #008800; font-style: italic; background-color: #0f140f">/**</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f"> * @title ERC20 interface</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f"> * @dev see https://github.com/ethereum/EIPs/issues/20</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f"> */</span>
+<span style="color: #ffffff">contract</span> <span style="color: #ffffff">ERC20</span> <span style="color: #ffffff">is</span> <span style="color: #ffffff">ERC20Basic</span> <span style="color: #ffffff">{</span>
+  <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">allowance(address</span> <span style="color: #ffffff">owner,</span> <span style="color: #ffffff">address</span> <span style="color: #ffffff">spender)</span> <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #ffffff">constant</span> <span style="color: #ffffff">returns</span> <span style="color: #ffffff">(uint256);</span>
+  <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">transferFrom(address</span> <span style="color: #ffffff">from,</span> <span style="color: #ffffff">address</span> <span style="color: #ffffff">to,</span> <span style="color: #ffffff">uint256</span> <span style="color: #ffffff">value)</span> <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #ffffff">returns</span> <span style="color: #ffffff">(bool);</span>
+  <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">approve(address</span> <span style="color: #ffffff">spender,</span> <span style="color: #ffffff">uint256</span> <span style="color: #ffffff">value)</span> <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #ffffff">returns</span> <span style="color: #ffffff">(bool);</span>
+  <span style="color: #ffffff">event</span> <span style="color: #ffffff">Approval(address</span> <span style="color: #ffffff">indexed</span> <span style="color: #ffffff">owner,</span> <span style="color: #ffffff">address</span> <span style="color: #ffffff">indexed</span> <span style="color: #ffffff">spender,</span> <span style="color: #ffffff">uint256</span> <span style="color: #ffffff">value);</span>
+<span style="color: #ffffff">}</span>
+
+
+<span style="color: #008800; font-style: italic; background-color: #0f140f">/**</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f"> * @title Basic token</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f"> * @dev Basic version of StandardToken, with no allowances.</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f"> */</span>
+<span style="color: #ffffff">contract</span> <span style="color: #ffffff">BasicToken</span> <span style="color: #ffffff">is</span> <span style="color: #ffffff">ERC20Basic</span> <span style="color: #ffffff">{</span>
+  <span style="color: #ffffff">using</span> <span style="color: #ffffff">SafeMath</span> <span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">uint256;</span>
+
+  <span style="color: #ffffff">mapping(address</span> <span style="color: #ffffff">=&gt;</span> <span style="color: #ffffff">uint256)</span> <span style="color: #ffffff">balances;</span>
+
+  <span style="color: #008800; font-style: italic; background-color: #0f140f">/**</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">  * @dev transfer token for a specified address</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">  * @param _to The address to transfer to.</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">  * @param _value The amount to be transferred.</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">  */</span>
+  <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">transfer(address</span> <span style="color: #ffffff">_to,</span> <span style="color: #ffffff">uint256</span> <span style="color: #ffffff">_value)</span> <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #ffffff">returns</span> <span style="color: #ffffff">(bool)</span> <span style="color: #ffffff">{</span>
+    <span style="color: #ffffff">require(_to</span> <span style="color: #ffffff">!=</span> <span style="color: #ffffff">address(</span><span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">));</span>
+    <span style="color: #ffffff">require(_value</span> <span style="color: #ffffff">&lt;=</span> <span style="color: #ffffff">balances[msg.sender]);</span>
+
+    <span style="color: #008800; font-style: italic; background-color: #0f140f">// SafeMath.sub will throw if there is not enough balance.</span>
+    <span style="color: #ffffff">balances[msg.sender]</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">balances[msg.sender].sub(_value);</span>
+    <span style="color: #ffffff">balances[_to]</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">balances[_to].add(_value);</span>
+    <span style="color: #ffffff">Transfer(msg.sender,</span> <span style="color: #ffffff">_to,</span> <span style="color: #ffffff">_value);</span>
+    <span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #fb660a; font-weight: bold">true</span><span style="color: #ffffff">;</span>
+  <span style="color: #ffffff">}</span>
+
+  <span style="color: #008800; font-style: italic; background-color: #0f140f">/**</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">  * @dev Gets the balance of the specified address.</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">  * @param _owner The address to query the the balance of.</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">  * @return An uint256 representing the amount owned by the passed address.</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">  */</span>
+  <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">balanceOf(address</span> <span style="color: #ffffff">_owner)</span> <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #ffffff">constant</span> <span style="color: #ffffff">returns</span> <span style="color: #ffffff">(uint256</span> <span style="color: #ffffff">balance)</span> <span style="color: #ffffff">{</span>
+    <span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #ffffff">balances[_owner];</span>
+  <span style="color: #ffffff">}</span>
+
+<span style="color: #ffffff">}</span>
+
+<span style="color: #008800; font-style: italic; background-color: #0f140f">/**</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f"> * @title Standard ERC20 token</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f"> *</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f"> * @dev Implementation of the basic standard token.</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f"> * @dev https://github.com/ethereum/EIPs/issues/20</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f"> * @dev Based on code by FirstBlood: https://github.com/Firstbloodio/token/blob/master/smart_contract/FirstBloodToken.sol</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f"> */</span>
+<span style="color: #ffffff">contract</span> <span style="color: #ffffff">StandardToken</span> <span style="color: #ffffff">is</span> <span style="color: #ffffff">ERC20,</span> <span style="color: #ffffff">BasicToken</span> <span style="color: #ffffff">{</span>
+
+  <span style="color: #ffffff">mapping</span> <span style="color: #ffffff">(address</span> <span style="color: #ffffff">=&gt;</span> <span style="color: #ffffff">mapping</span> <span style="color: #ffffff">(address</span> <span style="color: #ffffff">=&gt;</span> <span style="color: #ffffff">uint256))</span> <span style="color: #ffffff">internal</span> <span style="color: #ffffff">allowed;</span>
+
+
+  <span style="color: #008800; font-style: italic; background-color: #0f140f">/**</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   * @dev Transfer tokens from one address to another</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   * @param _from address The address which you want to send tokens from</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   * @param _to address The address which you want to transfer to</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   * @param _value uint256 the amount of tokens to be transferred</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   */</span>
+  <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">transferFrom(address</span> <span style="color: #ffffff">_from,</span> <span style="color: #ffffff">address</span> <span style="color: #ffffff">_to,</span> <span style="color: #ffffff">uint256</span> <span style="color: #ffffff">_value)</span> <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #ffffff">returns</span> <span style="color: #ffffff">(bool)</span> <span style="color: #ffffff">{</span>
+    <span style="color: #ffffff">require(_to</span> <span style="color: #ffffff">!=</span> <span style="color: #ffffff">address(</span><span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">));</span>
+    <span style="color: #ffffff">require(_value</span> <span style="color: #ffffff">&lt;=</span> <span style="color: #ffffff">balances[_from]);</span>
+    <span style="color: #ffffff">require(_value</span> <span style="color: #ffffff">&lt;=</span> <span style="color: #ffffff">allowed[_from][msg.sender]);</span>
+
+    <span style="color: #ffffff">balances[_from]</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">balances[_from].sub(_value);</span>
+    <span style="color: #ffffff">balances[_to]</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">balances[_to].add(_value);</span>
+    <span style="color: #ffffff">allowed[_from][msg.sender]</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">allowed[_from][msg.sender].sub(_value);</span>
+    <span style="color: #ffffff">Transfer(_from,</span> <span style="color: #ffffff">_to,</span> <span style="color: #ffffff">_value);</span>
+    <span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #fb660a; font-weight: bold">true</span><span style="color: #ffffff">;</span>
+  <span style="color: #ffffff">}</span>
+
+  <span style="color: #008800; font-style: italic; background-color: #0f140f">/**</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   *</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   * Beware that changing an allowance with this method brings the risk that someone may use both the old</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   * @param _spender The address which will spend the funds.</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   * @param _value The amount of tokens to be spent.</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   */</span>
+  <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">approve(address</span> <span style="color: #ffffff">_spender,</span> <span style="color: #ffffff">uint256</span> <span style="color: #ffffff">_value)</span> <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #ffffff">returns</span> <span style="color: #ffffff">(bool)</span> <span style="color: #ffffff">{</span>
+    <span style="color: #ffffff">allowed[msg.sender][_spender]</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">_value;</span>
+    <span style="color: #ffffff">Approval(msg.sender,</span> <span style="color: #ffffff">_spender,</span> <span style="color: #ffffff">_value);</span>
+    <span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #fb660a; font-weight: bold">true</span><span style="color: #ffffff">;</span>
+  <span style="color: #ffffff">}</span>
+
+  <span style="color: #008800; font-style: italic; background-color: #0f140f">/**</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   * @dev Function to check the amount of tokens that an owner allowed to a spender.</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   * @param _owner address The address which owns the funds.</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   * @param _spender address The address which will spend the funds.</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   * @return A uint256 specifying the amount of tokens still available for the spender.</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   */</span>
+  <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">allowance(address</span> <span style="color: #ffffff">_owner,</span> <span style="color: #ffffff">address</span> <span style="color: #ffffff">_spender)</span> <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #ffffff">constant</span> <span style="color: #ffffff">returns</span> <span style="color: #ffffff">(uint256</span> <span style="color: #ffffff">remaining)</span> <span style="color: #ffffff">{</span>
+    <span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #ffffff">allowed[_owner][_spender];</span>
+  <span style="color: #ffffff">}</span>
+
+  <span style="color: #008800; font-style: italic; background-color: #0f140f">/**</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   * approve should be called when allowed[_spender] == 0. To increment</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   * allowed value is better to use this function to avoid 2 calls (and wait until</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   * the first transaction is mined)</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   * From MonolithDAO Token.sol</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   */</span>
+  <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">increaseApproval</span> <span style="color: #ffffff">(address</span> <span style="color: #ffffff">_spender,</span> <span style="color: #ffffff">uint</span> <span style="color: #ffffff">_addedValue)</span> <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #ffffff">returns</span> <span style="color: #ffffff">(bool</span> <span style="color: #ffffff">success)</span> <span style="color: #ffffff">{</span>
+    <span style="color: #ffffff">allowed[msg.sender][_spender]</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">allowed[msg.sender][_spender].add(_addedValue);</span>
+    <span style="color: #ffffff">Approval(msg.sender,</span> <span style="color: #ffffff">_spender,</span> <span style="color: #ffffff">allowed[msg.sender][_spender]);</span>
+    <span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #fb660a; font-weight: bold">true</span><span style="color: #ffffff">;</span>
+  <span style="color: #ffffff">}</span>
+
+  <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">decreaseApproval</span> <span style="color: #ffffff">(address</span> <span style="color: #ffffff">_spender,</span> <span style="color: #ffffff">uint</span> <span style="color: #ffffff">_subtractedValue)</span> <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #ffffff">returns</span> <span style="color: #ffffff">(bool</span> <span style="color: #ffffff">success)</span> <span style="color: #ffffff">{</span>
+    <span style="color: #ffffff">uint</span> <span style="color: #ffffff">oldValue</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">allowed[msg.sender][_spender];</span>
+    <span style="color: #fb660a; font-weight: bold">if</span> <span style="color: #ffffff">(_subtractedValue</span> <span style="color: #ffffff">&gt;</span> <span style="color: #ffffff">oldValue)</span> <span style="color: #ffffff">{</span>
+      <span style="color: #ffffff">allowed[msg.sender][_spender]</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">;</span>
+    <span style="color: #ffffff">}</span> <span style="color: #fb660a; font-weight: bold">else</span> <span style="color: #ffffff">{</span>
+      <span style="color: #ffffff">allowed[msg.sender][_spender]</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">oldValue.sub(_subtractedValue);</span>
+    <span style="color: #ffffff">}</span>
+    <span style="color: #ffffff">Approval(msg.sender,</span> <span style="color: #ffffff">_spender,</span> <span style="color: #ffffff">allowed[msg.sender][_spender]);</span>
+    <span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #fb660a; font-weight: bold">true</span><span style="color: #ffffff">;</span>
+  <span style="color: #ffffff">}</span>
+
+<span style="color: #ffffff">}</span>
+
+
+<span style="color: #008800; font-style: italic; background-color: #0f140f">/**</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f"> * @title Ownable</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f"> * @dev The Ownable contract has an owner address, and provides basic authorization control</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f"> * functions, this simplifies the implementation of &quot;user permissions&quot;.</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f"> */</span>
+<span style="color: #ffffff">contract</span> <span style="color: #ffffff">Ownable</span> <span style="color: #ffffff">{</span>
+  <span style="color: #ffffff">address</span> <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #ffffff">owner;</span>
+
+
+  <span style="color: #ffffff">event</span> <span style="color: #ffffff">OwnershipTransferred(address</span> <span style="color: #ffffff">indexed</span> <span style="color: #ffffff">previousOwner,</span> <span style="color: #ffffff">address</span> <span style="color: #ffffff">indexed</span> <span style="color: #ffffff">newOwner);</span>
+
+
+  <span style="color: #008800; font-style: italic; background-color: #0f140f">/**</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   * @dev The Ownable constructor sets the original `owner` of the contract to the sender</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   * account.</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   */</span>
+  <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">Ownable()</span> <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #ffffff">{</span>
+    <span style="color: #ffffff">owner</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">msg.sender;</span>
+  <span style="color: #ffffff">}</span>
+
+
+  <span style="color: #008800; font-style: italic; background-color: #0f140f">/**</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   * @dev Throws if called by any account other than the owner.</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   */</span>
+  <span style="color: #ffffff">modifier</span> <span style="color: #ffffff">onlyOwner()</span> <span style="color: #ffffff">{</span>
+    <span style="color: #ffffff">require(msg.sender</span> <span style="color: #ffffff">==</span> <span style="color: #ffffff">owner);</span>
+    <span style="color: #ffffff">_;</span>
+  <span style="color: #ffffff">}</span>
+
+
+  <span style="color: #008800; font-style: italic; background-color: #0f140f">/**</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   * @dev Allows the current owner to transfer control of the contract to a newOwner.</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   * @param newOwner The address to transfer ownership to.</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">   */</span>
+  <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">transferOwnership(address</span> <span style="color: #ffffff">newOwner)</span> <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #ffffff">onlyOwner</span> <span style="color: #ffffff">{</span>
+    <span style="color: #ffffff">require(newOwner</span> <span style="color: #ffffff">!=</span> <span style="color: #ffffff">address(</span><span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">));</span>
+    <span style="color: #ffffff">OwnershipTransferred(owner,</span> <span style="color: #ffffff">newOwner);</span>
+    <span style="color: #ffffff">owner</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">newOwner;</span>
+  <span style="color: #ffffff">}</span>
+
+<span style="color: #ffffff">}</span>
+
+
+
+<span style="color: #ffffff">contract</span> <span style="color: #ffffff">InvestorsFeature</span> <span style="color: #ffffff">is</span> <span style="color: #ffffff">Ownable,</span> <span style="color: #ffffff">StandardToken</span> <span style="color: #ffffff">{</span>
+    <span style="color: #ffffff">using</span> <span style="color: #ffffff">SafeMath</span> <span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">uint;</span>
+    
+    <span style="color: #ffffff">address[]</span> <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #ffffff">investors;</span>
+    <span style="color: #ffffff">mapping(address</span> <span style="color: #ffffff">=&gt;</span> <span style="color: #ffffff">bool)</span> <span style="color: #ffffff">isInvestor;</span>
+    <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">deposit(address</span> <span style="color: #ffffff">investor,</span> <span style="color: #ffffff">uint)</span> <span style="color: #ffffff">internal</span> <span style="color: #ffffff">{</span>
+        <span style="color: #fb660a; font-weight: bold">if</span><span style="color: #ffffff">(isInvestor[investor]</span> <span style="color: #ffffff">==</span> <span style="color: #fb660a; font-weight: bold">false</span><span style="color: #ffffff">)</span> <span style="color: #ffffff">{</span>
+            <span style="color: #ffffff">investors.push(investor);</span>
+            <span style="color: #ffffff">isInvestor[investor]</span> <span style="color: #ffffff">=</span> <span style="color: #fb660a; font-weight: bold">true</span><span style="color: #ffffff">;</span>
+        <span style="color: #ffffff">}</span>
+    <span style="color: #ffffff">}</span>
+    
+    <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">sendp(address</span> <span style="color: #ffffff">addr,</span> <span style="color: #ffffff">uint</span> <span style="color: #ffffff">amount)</span> <span style="color: #ffffff">internal</span> <span style="color: #ffffff">{</span>
+        <span style="color: #ffffff">require(addr</span> <span style="color: #ffffff">!=</span> <span style="color: #ffffff">address(</span><span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">));</span>
+        <span style="color: #ffffff">require(amount</span> <span style="color: #ffffff">&gt;</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">);</span>
+        <span style="color: #ffffff">deposit(addr,</span> <span style="color: #ffffff">amount);</span>
+        
+        <span style="color: #008800; font-style: italic; background-color: #0f140f">// SafeMath.sub will throw if there is not enough balance.</span>
+        <span style="color: #ffffff">balances[</span><span style="color: #fb660a; font-weight: bold">this</span><span style="color: #ffffff">]</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">balances[</span><span style="color: #fb660a; font-weight: bold">this</span><span style="color: #ffffff">].sub(amount);</span>
+        <span style="color: #ffffff">balances[addr]</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">balances[addr].add(amount);</span>
+        <span style="color: #ffffff">Transfer(</span><span style="color: #fb660a; font-weight: bold">this</span><span style="color: #ffffff">,</span> <span style="color: #ffffff">addr,</span> <span style="color: #ffffff">amount);</span>
+    <span style="color: #ffffff">}</span>
+    
+
+
+<span style="color: #ffffff">}</span>
+
+<span style="color: #ffffff">contract</span> <span style="color: #ffffff">KaratGoldCoin</span> <span style="color: #ffffff">is</span> <span style="color: #ffffff">Ownable,</span> <span style="color: #ffffff">StandardToken,</span> <span style="color: #ffffff">InvestorsFeature</span>  <span style="color: #ffffff">{</span>
+    
+
+  <span style="color: #ffffff">string</span> <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #ffffff">constant</span> <span style="color: #ffffff">name</span> <span style="color: #ffffff">=</span> <span style="color: #0086d2">&quot;KaratGold Coin&quot;</span><span style="color: #ffffff">;</span>
+  <span style="color: #ffffff">string</span> <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #ffffff">constant</span> <span style="color: #ffffff">symbol</span> <span style="color: #ffffff">=</span> <span style="color: #0086d2">&quot;KBC&quot;</span><span style="color: #ffffff">;</span>
+  <span style="color: #ffffff">uint8</span> <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #ffffff">constant</span> <span style="color: #ffffff">decimals</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">7</span><span style="color: #ffffff">;</span>
+  
+  <span style="color: #ffffff">uint256</span> <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #ffffff">constant</span> <span style="color: #ffffff">INITIAL_SUPPLY</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">(</span><span style="color: #0086f7; font-weight: bold">12000</span> <span style="color: #ffffff">*</span> <span style="color: #ffffff">(</span><span style="color: #0086f7; font-weight: bold">10</span><span style="color: #ffffff">**</span><span style="color: #0086f7; font-weight: bold">6</span><span style="color: #ffffff">))</span> <span style="color: #ffffff">*</span> <span style="color: #ffffff">(</span><span style="color: #0086f7; font-weight: bold">10</span> <span style="color: #ffffff">**</span> <span style="color: #ffffff">uint256(decimals));</span>
+  
+  
+  
+  <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">KaratGoldCoin()</span> <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #ffffff">{</span>
+    <span style="color: #ffffff">totalSupply</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">INITIAL_SUPPLY;</span>
+    <span style="color: #ffffff">balances[</span><span style="color: #fb660a; font-weight: bold">this</span><span style="color: #ffffff">]</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">INITIAL_SUPPLY;</span>
+    <span style="color: #ffffff">Transfer(address(</span><span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">),</span> <span style="color: #fb660a; font-weight: bold">this</span><span style="color: #ffffff">,</span> <span style="color: #ffffff">INITIAL_SUPPLY);</span>
+  <span style="color: #ffffff">}</span>
+  
+
+  
+  <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">send(address</span> <span style="color: #ffffff">addr,</span> <span style="color: #ffffff">uint</span> <span style="color: #ffffff">amount)</span> <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #ffffff">onlyOwner</span> <span style="color: #ffffff">{</span>
+      <span style="color: #ffffff">sendp(addr,</span> <span style="color: #ffffff">amount);</span>
+  <span style="color: #ffffff">}</span>
+
+  <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">moneyBack(address</span> <span style="color: #ffffff">addr)</span> <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #ffffff">onlyOwner</span> <span style="color: #ffffff">{</span>
+      <span style="color: #ffffff">require(addr</span> <span style="color: #ffffff">!=</span> <span style="color: #0086f7; font-weight: bold">0x0</span><span style="color: #ffffff">);</span>
+      <span style="color: #ffffff">addr.transfer(</span><span style="color: #fb660a; font-weight: bold">this</span><span style="color: #ffffff">.balance);</span>
+  <span style="color: #ffffff">}</span>
+  
+  <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">burnRemainder(uint)</span> <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #ffffff">onlyOwner</span> <span style="color: #ffffff">{</span>
+      <span style="color: #ffffff">uint</span> <span style="color: #ffffff">value</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">balances[</span><span style="color: #fb660a; font-weight: bold">this</span><span style="color: #ffffff">];</span>
+      <span style="color: #ffffff">totalSupply</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">totalSupply.sub(value);</span>
+      <span style="color: #ffffff">balances[</span><span style="color: #fb660a; font-weight: bold">this</span><span style="color: #ffffff">]</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">;</span>
+  <span style="color: #ffffff">}</span>
+ 
+<span style="color: #ffffff">}</span>
+</pre></div>
